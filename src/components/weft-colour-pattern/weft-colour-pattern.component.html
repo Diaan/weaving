@@ -1,0 +1,5 @@
+<div 
+  *ngFor="let colour of weftColours; let i = index" 
+  (click)="toggleColour(i)"
+  [style.backgroundColor]="colour">
+</div>

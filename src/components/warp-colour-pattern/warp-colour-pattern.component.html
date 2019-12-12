@@ -1,0 +1,4 @@
+<div 
+  *ngFor="let colour of warpColours; let i = index" 
+  [style.backgroundColor]="colour"
+  (click)="toggleColour(i)"></div>

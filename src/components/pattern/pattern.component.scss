@@ -1,0 +1,21 @@
+:host {
+  display: grid;
+  gap: 1px;
+  grid-template-rows:  repeat(auto-fit, 20px);
+  width: 41px;
+  height: 41px;
+  align-self: flex-end;
+
+  &>div{
+    display: grid;
+    gap: 1px;
+    grid-template-columns:  repeat(auto-fit, 20px);
+  }
+}
+
+div{
+  background-color: #fff;
+}
+.black{
+  background-color: black;
+}
