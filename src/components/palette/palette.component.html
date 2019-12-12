@@ -1,0 +1,4 @@
+<div *ngFor="let colour of palette; let i = index;" [style.background-color]="colour">
+  <input type="color" [value]="colour" (change)="changeColour(colour,i)"/>
+  <button>x</button>
+</div>
