@@ -2,7 +2,7 @@ p {
   font-family: Lato;
 }
 
-div{
+div.complete-pattern{
   background-color: grey;
   display: grid;
   grid-template-areas:
@@ -15,14 +15,35 @@ div{
   gap: 4px;
 }
 
-app-work {
+
+
+.app-work {
   grid-area: work;
+  display: grid;
+  grid-auto-flow: row;
+  gap: 1px;
+
+  .weft-repeat{
+    display: grid;
+    grid-auto-flow: column;
+    gap: 1px;
+  }
 }
 
-app-weft-colour-pattern {
+.app-weft-colour-pattern {
   grid-area: weft-colours;
+  display: grid;
+  grid-auto-flow: row;
+  gap: 1px;
 }
 
-app-warp-colour-pattern {
+.app-warp-colour-pattern {
   grid-area: warp-colours;
+  display: grid;
+  grid-auto-flow: column;
+  gap: 1px;
+}
+
+app-pattern {
+  grid-area: pattern;
 }

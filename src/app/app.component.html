@@ -1,31 +1,44 @@
-<table>
-  <thead><tr><th></th><th>warps</th><th>wefts</th></tr></thead>
-  <tbody>
-    <tr>
-      <th>pattern</th>
-      <td><input [ngModel]="warps" (input)="updateWarps($event.target.value)" type="number"></td>
-      <td><input [ngModel]="wefts" (change)="updateWefts($event.target.value)" type="number"></td>
-    </tr>
-    <tr>
-      <th>repeats</th>
-      <td><input [ngModel]="warpRepeats" (input)="updateWarpRepeats($event.target.value)" type="number"></td>
-      <td><input [ngModel]="warpRepeats" (change)="updateWeftRepeats($event.target.value)" type="number"></td>
-    </tr>
-  </tbody>
-</table>
+<form [formGroup]="repeatForm">
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>warps</th>
+        <th>wefts</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>pattern</th>
+        <td><input formControlName="warps" type="number"></td>
+        <td><input formControlName="wefts" type="number"></td>
+      </tr>
+      <tr>
+        <th>repeats</th>
+        <td><input formControlName="warpRepeats" type="number"></td>
+        <td><input formControlName="weftRepeats" type="number"></td>
+      </tr>
+    </tbody>
+  </table>
+</form>
 <app-palette [palette]="palette"></app-palette>
-<hr/>
+<hr />
 
-<div>
+<div class="complete-pattern">
   <app-pattern [pattern]="pattern"></app-pattern>
-<app-weft-colour-pattern [weftColours]="weftColours" [palette]="palette"></app-weft-colour-pattern>
-<app-warp-colour-pattern [warpColours]="warpColours" [palette]="palette"></app-warp-colour-pattern>
-<app-work 
-  *ngFor="let r of patternRepeats"
-  [warpCount]="warps" 
-  [weftCount]="wefts"
-  [pattern]="pattern"
-  [warpColours]="warpColours"
-  [weftColours]="weftColours"
-></app-work>
+  <div class="app-weft-colour-pattern">
+    <app-weft-colour-pattern *ngFor="let r of weftRepeats" [weftColours]="weftColours" [palette]="palette">
+    </app-weft-colour-pattern>
+  </div>
+  <div class="app-warp-colour-pattern">
+    <app-warp-colour-pattern *ngFor="let r of warpRepeats" [warpColours]="warpColours" [palette]="palette">
+    </app-warp-colour-pattern>
+  </div>
+
+  <div class="app-work">
+    <div class="weft-repeat" *ngFor="let r of weftRepeats">
+      <app-work *ngFor="let r of warpRepeats" [warpCount]="warps" [weftCount]="wefts" [pattern]="pattern"
+        [warpColours]="warpColours" [weftColours]="weftColours"></app-work>
+    </div>
+  </div>
 </div>

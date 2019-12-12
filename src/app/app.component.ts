@@ -1,23 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: [ './app.component.scss' ]
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  name = 'Angular';
-
-  warps = 6;
-  wefts = 6;
-
-  warpRepeats = 4;
-  weftRepeats = 4;
+  repeatForm = new FormGroup({
+    warps: new FormControl(4),
+    wefts: new FormControl(4),
+    warpRepeats: new FormControl(6),
+    weftRepeats: new FormControl(6)
+  });
 
   weftColours = [];
   warpColours = [];
 
-  pattern = [[0,1],[1,0]];
+  pattern = [[0, 1], [1, 0]];
   // pattern = [[1,0,0,0,1],[0,1,0,1,0],[0,0,1,0,0]];
 
   palette = [
@@ -28,27 +28,33 @@ export class AppComponent implements OnInit {
     '#A8B4A5'
   ]
 
-  get patternRepeats(){
-    return new Array(this.warpRepeats);
+  get warpRepeats() {
+    return new Array(this.repeatForm.getRawValue().warpRepeats);
   }
 
-  ngOnInit(){
-   this.weftColours = new Array(this.wefts).fill(this.palette[0]); 
-   this.warpColours = new Array(this.warps).fill(this.palette[1]); 
+  get weftRepeats() {
+    return new Array(this.repeatForm.getRawValue().weftRepeats);
   }
 
-  updateWarps(value){
-    this.warps = parseInt(value);
-    if(this.warps>=this.warpColours.length){
-      this.warpColours.push(this.palette[1]);
-    }
+  get warps() {
+    return this.repeatForm.getRawValue().warps;
   }
 
-  updateWefts(value){
-    this.wefts = parseInt(value);
+  get wefts() {
+    return this.repeatForm.getRawValue().wefts;
+  }
 
-    if(this.wefts>=this.weftColours.length){
-      this.weftColours.push(this.palette[0]);
-    }
+  ngOnInit() {
+    this.weftColours = new Array(this.wefts).fill(this.palette[0]);
+    this.warpColours = new Array(+this.warps).fill(this.palette[1]);
+
+    this.repeatForm.valueChanges.subscribe(p => {
+      if (p.warps > this.warpColours.length) {
+        this.warpColours.push(this.palette[1]);
+      }
+      if (p.wefts > this.weftColours.length) {
+        this.weftColours.push(this.palette[0]);
+      }
+    });
   }
 }
