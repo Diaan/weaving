@@ -1,4 +1,8 @@
-<div *ngFor="let colour of palette; let i = index;" [style.background-color]="colour">
-  <input type="color" [value]="colour" (change)="changeColour(colour,i)"/>
-  <button>x</button>
-</div>
+<form [formGroup]="paletteForm" (ngSubmit)="onSubmit()">
+  <div formArrayName="colours">
+    <div *ngFor="let colour of colours.controls; let i=index" [style.background-color]="colour.value">
+      <input type="color" [formControlName]="i">
+      <button>x</button>
+    </div>
+  </div>
+</form>

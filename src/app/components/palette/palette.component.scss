@@ -1,11 +1,15 @@
-:host {
-  display: flex;
+:host{
+  display: block;
 }
 
 div {
+  display: flex;
+}
+
+div div {
   width: 50px;
   height: 80px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; 
+  justify-content: space-between;
 }

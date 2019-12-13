@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵConsole } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
     '#9D6A89',
     '#725D68',
     '#A8B4A5'
-  ]
+  ];
 
   get warpRepeats() {
     return new Array(this.repeatForm.getRawValue().warpRepeats);
@@ -56,5 +56,9 @@ export class AppComponent implements OnInit {
         this.weftColours.push(this.palette[0]);
       }
     });
+  }
+
+  updatePalette(c) {
+    this.palette = c;
   }
 }

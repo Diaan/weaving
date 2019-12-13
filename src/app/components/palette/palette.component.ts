@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-palette',
@@ -7,16 +8,37 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class PaletteComponent implements OnInit {
 
-  @Input() palette: string[];
+  paletteForm = this.fb.group({
+    colours: this.fb.array([
+      this.fb.control('')
+    ])
+  });
 
-  constructor() { }
-
-  ngOnInit() {
+  get colours() {
+    return this.paletteForm.get('colours') as FormArray;
   }
 
-  changeColour(colour,i) {
-    console.log(colour,i);
-    this.palette[i]=colour;
+  @Input() palette: string[];
+
+  @Output() paletteChange = new EventEmitter();
+
+  constructor(private fb: FormBuilder) { }
+
+  ngOnInit() {
+    this.paletteForm.setControl('colours', this.fb.array(this.palette || []));
+
+    this.paletteForm.valueChanges.subscribe(p => {
+      console.log(p);
+      this.paletteChange.emit(p.colours);
+      console.log('geemit');
+    });
+  }
+
+  //https://angular.io/guide/dynamic-form
+
+  changeColour(colour, i) {
+    console.log(colour, i);
+    this.palette[i] = colour;
   }
 
 }

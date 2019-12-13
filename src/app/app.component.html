@@ -21,7 +21,7 @@
     </tbody>
   </table>
 </form>
-<app-palette [palette]="palette"></app-palette>
+<app-palette [palette]="palette" (paletteChange)="updatePalette($event)"></app-palette>
 <hr />
 
 <div class="complete-pattern">
