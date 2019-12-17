@@ -21,12 +21,12 @@ div.complete-pattern{
   grid-area: work;
   display: grid;
   grid-auto-flow: row;
-  gap: 1px;
+  gap: var(--grid-gap,1px);
 
   .weft-repeat{
     display: grid;
     grid-auto-flow: column;
-    gap: 1px;
+    gap: var(--grid-gap,1px);
   }
 }
 
@@ -34,14 +34,20 @@ div.complete-pattern{
   grid-area: weft-colours;
   display: grid;
   grid-auto-flow: row;
-  gap: 1px;
+  gap: var(--grid-gap,1px);
+  grid-template-rows: repeat(var(--weft-repeats),1fr);
 }
 
 .app-warp-colour-pattern {
   grid-area: warp-colours;
   display: grid;
   grid-auto-flow: column;
-  gap: 1px;
+  gap: var(--grid-gap,1px);
+  grid-template-columns: repeat(var(--warp-repeats),1fr);
+
+  app-warp-colour-pattern {
+    grid-column-start:var(--warp-repeats);
+  }
 }
 
 app-pattern {

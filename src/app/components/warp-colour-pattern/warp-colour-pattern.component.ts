@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-warp-colour-pattern',
@@ -7,17 +8,23 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class WarpColourPatternComponent implements OnInit {
 
-  @Input() warpColours: string[];
+  @Input() warpColours: number[];
   @Input() palette: string[];
 
-  constructor() { }
+  constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
   }
 
-  toggleColour(index){
-    const currentColor = this.palette.indexOf(this.warpColours[index]);
-    this.warpColours[index] = currentColor+1 < this.palette.length?this.palette[currentColor+1]:this.palette[0];
+  getColourNumber(colour) {
+    return this.sanitizer.bypassSecurityTrustStyle(
+      `background-color: var(--colour${this.warpColours[colour]});`
+    );
+  }
+
+  toggleColour(index) {
+    const currentColor = this.warpColours[index];
+    this.warpColours[index] = currentColor + 1 < this.palette.length ? currentColor + 1 : 0;
   }
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, HostBinding } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-weft',
@@ -13,20 +14,22 @@ export class WeftComponent implements OnInit {
   @Input() warpColours: string[];
   @Input() weftColours: string[];
 
-  get warps(){
+  get warps() {
     return new Array(this.warpCount);
   }
 
-  constructor() { }
+  constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
   }
 
-  getColor(index){
+  getColor(index) {
     const patternRow = this.pattern[this.weftNumber % this.pattern.length];
     const patternNumber = patternRow[index % patternRow.length];
     //op 1 in de pattern is de warp leidend
-    return patternNumber === 1 ? this.warpColours[index] : this.weftColours[this.weftNumber];
-    return 'red';
+    const colourNumber = patternNumber === 1 ? this.warpColours[index] : this.weftColours[this.weftNumber];
+    return this.sanitizer.bypassSecurityTrustStyle(
+      `var(--colour${colourNumber})`
+    );
   }
 }

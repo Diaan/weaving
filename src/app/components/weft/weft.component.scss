@@ -1,13 +1,11 @@
 :host{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(10px,auto));
-  grid-template-rows: 1fr 0px;
-  gap: 1px;
+  grid-template-rows: 1fr;
+  gap: var(--grid-gap,1px);
   width: 100%;
-  background-color: black;
 }
 
-div { 
+div {
   padding-bottom: 100%;
-  background-color: white
 }

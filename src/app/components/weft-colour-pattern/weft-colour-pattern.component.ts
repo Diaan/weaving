@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-weft-colour-pattern',
@@ -7,16 +8,22 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class WeftColourPatternComponent implements OnInit {
 
-  @Input() weftColours: string[];
+  @Input() weftColours: number[];
   @Input() palette: string[];
 
-  constructor() { }
+  constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
   }
 
-  toggleColour(index){
-    const currentColor = this.palette.indexOf(this.weftColours[index]);
-    this.weftColours[index] = currentColor+1 < this.palette.length?this.palette[currentColor+1]:this.palette[0];
+  getColourNumber(colour) {
+    return this.sanitizer.bypassSecurityTrustStyle(
+      `background-color: var(--colour${this.weftColours[colour]});`
+    );
+  }
+
+  toggleColour(index) {
+    const currentColor = this.weftColours[index];
+    this.weftColours[index] = currentColor + 1 < this.palette.length ? currentColor + 1 : 0;
   }
 }

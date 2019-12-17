@@ -1,6 +1,6 @@
 :host {
   display: grid;
-  gap: 1px;
+  gap: var(--grid-gap,1px);
   grid-template-rows:  repeat(auto-fit, 20px);
   width: 41px;
   height: 41px;

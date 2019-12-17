@@ -20,6 +20,7 @@
       </tr>
     </tbody>
   </table>
+  grid gap: <input formControlName="gridGap" type="number">
 </form>
 <app-palette [palette]="palette" (paletteChange)="updatePalette($event)"></app-palette>
 <hr />
@@ -27,11 +28,12 @@
 <div class="complete-pattern">
   <app-pattern [pattern]="pattern"></app-pattern>
   <div class="app-weft-colour-pattern">
-    <app-weft-colour-pattern *ngFor="let r of weftRepeats" [weftColours]="weftColours" [palette]="palette">
+    <app-weft-colour-pattern [weftColours]="weftColours" [palette]="palette">
     </app-weft-colour-pattern>
   </div>
   <div class="app-warp-colour-pattern">
-    <app-warp-colour-pattern *ngFor="let r of warpRepeats" [warpColours]="warpColours" [palette]="palette">
+    <div>{{warpColours | json }}</div>
+    <app-warp-colour-pattern [warpColours]="warpColours" [palette]="palette">
     </app-warp-colour-pattern>
   </div>
 
